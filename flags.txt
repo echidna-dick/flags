@@ -98,3 +98,24 @@ Binary	            Hex	     Unsigned	Signed (two’s complement)
 10000001	       0x81	       129	    -127
 11111110	       0xFE	       254	     -2
 11111111	       0xFF	       255	     -1
+
+method to count Flags:
+    SF = 1(negative), OF = 1 overflow by 1 bit, CF = 127 + 1 = 128 (fits in unsigned 8-bit) (128 from 255) ZF = 0 0x80 != 0
+
+TIPS~
+in carry flag is we look if the actual overflow happend or something spilled out but in overflow flag look for sign errors thats why it uses signed math
+
+#IMPORTANT!!!
+    how to count if the value is 128+ in signed:
+        so first we get 250 + 10 for example the 250 in 8-bit will be 11111010
+        remember MSB first left bit: 1 (negative) #IMPORTANT: if MSB = 0 convert from binary to decimal!
+        then we invert it: 0 -> 1, 1 -> 0
+        so we have: 00000101
+        then we add 1: 00000101 + 1 = 00000110 (1+1 = 10 add to last right)
+        so 00000110 = 6 add - to it so we have -6 (negative)
+
+    with 10:
+        10 in binary 00001010
+        so MSB = 0 we dont have to change anything!
+so we have: -6 + 10 = +4
+    +4 fits in OF so OF = 0
